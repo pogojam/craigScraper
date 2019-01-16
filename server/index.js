@@ -1,11 +1,14 @@
 const express = require('express')
 const {ApolloServer,gql} = require('apollo-server-express')
 const cors = require('cors')
+const MongoClient = require('mongodb').MongoClient
 const port = 3001
 const app = express()
 
 const scraper = require('./scraper')
 
+
+var db
 
 const schema = gql`
 type Query {
@@ -39,11 +42,9 @@ const resolvers = {
           const getAvgPrice = (val)=>{
             let num = 0
             val.forEach(element => {
-                
                 num = num+element                
             });
                 console.log(num);
-                
             return num/val.length
         }
 
@@ -59,6 +60,7 @@ const resolvers = {
         
         return {
           prices: prices,
+          name:name,
           id:ID,
           avgSell:avgSell,
           buy:buy,
@@ -81,7 +83,17 @@ app.use(cors())
 server.applyMiddleware({ app, path: '/graphql' });
 
 
-app.listen(port,() => {
+MongoClient.connect('mongodb://pogojam:Cocojam1@ds259154.mlab.com:59154/craigscraper',{useNewUrlParser:true},(err,client)=>{
+
+if(err){
+  return console.log(err)
+}
+
+db = client.db('scraperDB')
+console.log('db up!');
+
+  app.listen(port,() => {
     console.log(`running on ${port}`);
     
+})
 })
