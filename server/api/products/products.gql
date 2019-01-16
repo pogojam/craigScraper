@@ -1,0 +1,9 @@
+gql`
+type Query {
+  me: User
+}
+
+type User {
+  username: String!
+}
+`
