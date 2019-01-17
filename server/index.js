@@ -4,9 +4,10 @@ const cors = require('cors')
 const MongoClient = require('mongodb').MongoClient
 const port = 3001
 const app = express()
-
+const trackedProducts = require('./collections/trackedProducts').trackedProducts
 const scraper = require('./scraper')
 
+var exports = module.exports = {}
 
 var db
 
@@ -58,14 +59,20 @@ const resolvers = {
         buy = avgSell-(avgSell*.3)
         sell = avgSell
         
-        return {
+        const results = {
           prices: prices,
           name:name,
           id:ID,
           avgSell:avgSell,
           buy:buy,
           sell:sell,
-        };
+        }
+
+      
+
+        console.log(db.collection);
+
+        return results;
       },
     },
   };
@@ -78,10 +85,7 @@ const server = new ApolloServer({
 
 app.use(cors())
 
-
-
 server.applyMiddleware({ app, path: '/graphql' });
-
 
 MongoClient.connect('mongodb://pogojam:Cocojam1@ds259154.mlab.com:59154/craigscraper',{useNewUrlParser:true},(err,client)=>{
 
@@ -90,10 +94,14 @@ if(err){
 }
 
 db = client.db('scraperDB')
-console.log('db up!');
+console.log('DB up');
+
+db.collection('products').insertOne({test:'test'})
 
   app.listen(port,() => {
-    console.log(`running on ${port}`);
-    
+    console.log(`running on ${port}`);    
 })
+
 })
+
+exports.db = db
