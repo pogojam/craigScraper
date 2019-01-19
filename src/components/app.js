@@ -33,6 +33,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    width:90%;
 
 `
 
@@ -74,5 +75,5 @@ class App extends Component {
 
 
 export default graphql(AddProduct,{name:'AddProduct',options:{
-    refetchQueries:['GetProducts']
+    refetchQueries:['Products']
 }})(App)

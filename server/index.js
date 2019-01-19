@@ -17,13 +17,14 @@ type Query {
 }
 
 type Mutation {
-  search(name:String): Product
+  search(name:String): Product,
+  removeProduct(name:String):Product
 }
 
 type Product {
-  name:String!,
-  prices: [String]!,
-  id:[String]!,
+  name:String,
+  prices: [String],
+  id:[String],
   avgSell:String,
   buy:String,
   sell:String
@@ -47,17 +48,17 @@ const resolvers = {
             val.forEach(element => {
                 num = num+element                
             });
-            return num/val.length
+            return Math.floor(num/val.length)
         }
 
           scrapeData.map((val)=>{ 
-            prices.push(val[0]);
+            prices.push((val[0]));
             ID.push(val[1])
         })
 
         avgSell = getAvgPrice(prices)
         
-        buy = avgSell-(avgSell*.3)
+        buy = Math.floor(avgSell-(avgSell*.3))
         sell = avgSell
 
         
@@ -74,6 +75,11 @@ const resolvers = {
 
         return results;
       },
+      removeProduct(obj,{name}){
+        const productsDB = db.collection('products')
+        productsDB.remove({name:name})
+        return name
+      }
     },
  Query:{
   async Products(){         

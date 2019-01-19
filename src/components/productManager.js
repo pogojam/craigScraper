@@ -8,10 +8,13 @@ import { validateOperation } from 'apollo-link/lib/linkUtils';
 
 
 const GetProducts = gql`
-  query GetProducts {
+  query Products {
   Products{
     name
     sell
+    buy
+    avgSell
+    id
   }
 }
 `
