@@ -13,7 +13,7 @@ var db
 
 const schema = gql`
 type Query {
-    Product:Product
+    Products:[Product]
 }
 
 type Mutation {
@@ -21,6 +21,7 @@ type Mutation {
 }
 
 type Product {
+  name:String!,
   prices: [String]!,
   id:[String]!,
   avgSell:String,
@@ -36,6 +37,7 @@ const resolvers = {
           const scrapeData = await scraper(name)
           const prices = [];
           const ID =[] ;
+          const productsDB = db.collection('products')
           let avgSell = 0
           let buy = 0
           let sell = 0
@@ -45,7 +47,6 @@ const resolvers = {
             val.forEach(element => {
                 num = num+element                
             });
-                console.log(num);
             return num/val.length
         }
 
@@ -58,6 +59,7 @@ const resolvers = {
         
         buy = avgSell-(avgSell*.3)
         sell = avgSell
+
         
         const results = {
           prices: prices,
@@ -67,14 +69,20 @@ const resolvers = {
           buy:buy,
           sell:sell,
         }
-
-      
-
-        console.log(db.collection);
+        
+        productsDB.insertOne(results)
 
         return results;
       },
     },
+ Query:{
+  async Products(){         
+    console.log('fire');
+    
+ return db.collection('products').find().toArray()
+      
+      }
+    }
   };
 
 
@@ -87,16 +95,14 @@ app.use(cors())
 
 server.applyMiddleware({ app, path: '/graphql' });
 
-MongoClient.connect('mongodb://pogojam:Cocojam1@ds259154.mlab.com:59154/craigscraper',{useNewUrlParser:true},(err,client)=>{
+MongoClient.connect('mongodb://pogojam:Cocojam1@cluster0-shard-00-00-9grvn.mongodb.net:27017,cluster0-shard-00-01-9grvn.mongodb.net:27017,cluster0-shard-00-02-9grvn.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true',{useNewUrlParser:true},(err,client)=>{
 
 if(err){
   return console.log(err)
 }
 
-db = client.db('scraperDB')
 console.log('DB up');
-
-db.collection('products').insertOne({test:'test'})
+db = client.db('scraperDB')
 
   app.listen(port,() => {
     console.log(`running on ${port}`);    

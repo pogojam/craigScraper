@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
 import ProductManager from './productManager'
-import { compose, graphql } from 'react-apollo'
 
 import AddProductInput from './addProductInput'
+
+import { compose, graphql } from 'react-apollo'
 import gql from 'graphql-tag';
 
 
@@ -27,11 +28,6 @@ const AddProduct = gql`
             }
     }
 `
-
-// axios.get('http://localhost:3001/ping').then((res) => {
-//         console.log(res);
-        
-// })
 
 const Container = styled.div`
     display: flex;
@@ -77,4 +73,6 @@ class App extends Component {
 }
 
 
-export default graphql(AddProduct,{name:'AddProduct'})(App)
+export default graphql(AddProduct,{name:'AddProduct',options:{
+    refetchQueries:['GetProducts']
+}})(App)
