@@ -18,6 +18,10 @@ const Container = styled.div`
         justify-content: space-evenly;
     align-items: center;
 
+    & > *{
+      flex-basis:100%;
+    }
+
 `
 
 const Button = styled.button`
@@ -52,8 +56,9 @@ class Product extends Component {
         <h3>
         Avg Selling Price ${avgSell}
         </h3>
-        <Button onClick={()=>this.handleRemove(name)} >
-        </Button>
+        <div>
+        <Button onClick={()=>this.handleRemove(name)} />
+        </div>
       </Container>
     )
   }

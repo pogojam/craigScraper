@@ -2,14 +2,27 @@ const express = require('express')
 const {ApolloServer,gql} = require('apollo-server-express')
 const cors = require('cors')
 const MongoClient = require('mongodb').MongoClient
-const port = 3001
 const app = express()
-const trackedProducts = require('./collections/trackedProducts').trackedProducts
 const scraper = require('./scraper')
 
-var exports = module.exports = {}
 
+// database 
 var db
+const port = 3001
+
+// Helper functions
+
+
+const toTitleCase = (str)=>{
+  console.log(str);
+  
+  return str.replace(/\w\S*/g, function(txt){
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  });
+}
+
+
+// Schema
 
 const schema = gql`
 type Query {
@@ -31,14 +44,19 @@ type Product {
 }
 `;
 
+// resolvers
+
 const resolvers = {
     Mutation: {
      async search(obj,{name}){
+      
           
           const scrapeData = await scraper(name)
           const prices = [];
           const ID =[] ;
           const productsDB = db.collection('products')
+          
+          // Price Factors
           let avgSell = 0
           let buy = 0
           let sell = 0
@@ -64,7 +82,7 @@ const resolvers = {
         
         const results = {
           prices: prices,
-          name:name,
+          name:toTitleCase(name),
           id:ID,
           avgSell:avgSell,
           buy:buy,
@@ -91,11 +109,11 @@ const resolvers = {
     }
   };
 
+// express setup
 
 const server = new ApolloServer({
     typeDefs:schema,resolvers
 })
-
 
 app.use(cors())
 
@@ -115,5 +133,3 @@ db = client.db('scraperDB')
 })
 
 })
-
-exports.db = db

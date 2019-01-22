@@ -30586,7 +30586,7 @@ GraphQLError.prototype = Object.create(Error.prototype, {
     }
   }
 });
-},{"./printError":"node_modules/graphql/error/printError.js","../language/location":"node_modules/graphql/language/location.js"}],"node_modules/graphql/error/syntaxError.js":[function(require,module,exports) {
+},{"./printError":"node_modules/graphql/error/printError.js","../language/location":"node_modules/graphql/language/location.js"}],"node_modules/graphql/error/syntaxError.mjs":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30595,6 +30595,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.syntaxError = syntaxError;
 
 var _GraphQLError = require("./GraphQLError");
+
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
  *
@@ -30608,12 +30609,10 @@ var _GraphQLError = require("./GraphQLError");
  * Produces a GraphQLError representing a syntax error, containing useful
  * descriptive information about the syntax error's position in the source.
  */
-
-
 function syntaxError(source, position, description) {
   return new _GraphQLError.GraphQLError("Syntax Error: ".concat(description), undefined, source, [position]);
 }
-},{"./GraphQLError":"node_modules/graphql/error/GraphQLError.js"}],"node_modules/graphql/error/locatedError.js":[function(require,module,exports) {
+},{"./GraphQLError":"node_modules/graphql/error/GraphQLError.js"}],"node_modules/graphql/error/locatedError.mjs":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30622,6 +30621,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.locatedError = locatedError;
 
 var _GraphQLError = require("./GraphQLError");
+
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
  *
@@ -30636,8 +30636,6 @@ var _GraphQLError = require("./GraphQLError");
  * GraphQL operation, produce a new GraphQLError aware of the location in the
  * document responsible for the original Error.
  */
-
-
 function locatedError(originalError, nodes, path) {
   // Note: this uses a brand-check to support GraphQL errors originating from
   // other contexts.
@@ -30669,7 +30667,7 @@ function invariant(condition, message) {
     throw new Error(message);
   }
 }
-},{}],"node_modules/graphql/error/formatError.js":[function(require,module,exports) {
+},{}],"node_modules/graphql/error/formatError.mjs":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30679,11 +30677,8 @@ exports.formatError = formatError;
 
 var _invariant = _interopRequireDefault(require("../jsutils/invariant"));
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {
-    default: obj
-  };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
  *
@@ -30697,8 +30692,6 @@ function _interopRequireDefault(obj) {
  * Given a GraphQLError, format it according to the rules described by the
  * Response Format, Errors section of the GraphQL Specification.
  */
-
-
 function formatError(error) {
   !error ? (0, _invariant.default)(0, 'Received null or undefined error.') : void 0;
   var message = error.message || 'An unknown error occurred.';
@@ -30762,7 +30755,7 @@ var _locatedError = require("./locatedError");
 var _printError = require("./printError");
 
 var _formatError = require("./formatError");
-},{"./GraphQLError":"node_modules/graphql/error/GraphQLError.js","./syntaxError":"node_modules/graphql/error/syntaxError.js","./locatedError":"node_modules/graphql/error/locatedError.js","./printError":"node_modules/graphql/error/printError.js","./formatError":"node_modules/graphql/error/formatError.js"}],"node_modules/graphql/language/blockStringValue.mjs":[function(require,module,exports) {
+},{"./GraphQLError":"node_modules/graphql/error/GraphQLError.js","./syntaxError":"node_modules/graphql/error/syntaxError.mjs","./locatedError":"node_modules/graphql/error/locatedError.mjs","./printError":"node_modules/graphql/error/printError.js","./formatError":"node_modules/graphql/error/formatError.mjs"}],"node_modules/graphql/language/blockStringValue.mjs":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -45505,7 +45498,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n        width:100%;\n        display:flex;\n        flex-direction:row;\n        justify-content: space-evenly;\n    align-items: center;\n\n"]);
+  var data = _taggedTemplateLiteral(["\n        width:100%;\n        display:flex;\n        flex-direction:row;\n        justify-content: space-evenly;\n    align-items: center;\n\n    & > *{\n      flex-basis:100%;\n    }\n\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -45563,11 +45556,11 @@ function (_Component) {
           sell = _this$props.sell,
           avgSell = _this$props.avgSell,
           id = _this$props.id;
-      return _react.default.createElement(Container, null, _react.default.createElement("h2", null, name), _react.default.createElement("h3", null, "Buy $", buy), _react.default.createElement("h3", null, "Sell $", sell), _react.default.createElement("h3", null, "Avg Selling Price $", avgSell), _react.default.createElement(Button, {
+      return _react.default.createElement(Container, null, _react.default.createElement("h2", null, name), _react.default.createElement("h3", null, "Buy $", buy), _react.default.createElement("h3", null, "Sell $", sell), _react.default.createElement("h3", null, "Avg Selling Price $", avgSell), _react.default.createElement("div", null, _react.default.createElement(Button, {
         onClick: function onClick() {
           return _this.handleRemove(name);
         }
-      }));
+      })));
     }
   }]);
 
@@ -61024,40 +61017,7 @@ function assertValidSDLExtension(documentAST, schema) {
     }).join('\n\n'));
   }
 }
-},{"../jsutils/invariant":"node_modules/graphql/jsutils/invariant.mjs","../language/visitor":"node_modules/graphql/language/visitor.mjs","../type/validate":"node_modules/graphql/type/validate.mjs","../utilities/TypeInfo":"node_modules/graphql/utilities/TypeInfo.mjs","./specifiedRules":"node_modules/graphql/validation/specifiedRules.mjs","./ValidationContext":"node_modules/graphql/validation/ValidationContext.mjs"}],"node_modules/graphql/error/locatedError.mjs":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.locatedError = locatedError;
-
-var _GraphQLError = require("./GraphQLError");
-
-/**
- * Copyright (c) 2015-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- *  strict
- */
-
-/**
- * Given an arbitrary Error, presumably thrown while attempting to execute a
- * GraphQL operation, produce a new GraphQLError aware of the location in the
- * document responsible for the original Error.
- */
-function locatedError(originalError, nodes, path) {
-  // Note: this uses a brand-check to support GraphQL errors originating from
-  // other contexts.
-  if (originalError && Array.isArray(originalError.path)) {
-    return originalError;
-  }
-
-  return new _GraphQLError.GraphQLError(originalError && originalError.message, originalError && originalError.nodes || nodes, originalError && originalError.source, originalError && originalError.positions, path, originalError);
-}
-},{"./GraphQLError":"node_modules/graphql/error/GraphQLError.js"}],"node_modules/graphql/jsutils/isPromise.mjs":[function(require,module,exports) {
+},{"../jsutils/invariant":"node_modules/graphql/jsutils/invariant.mjs","../language/visitor":"node_modules/graphql/language/visitor.mjs","../type/validate":"node_modules/graphql/type/validate.mjs","../utilities/TypeInfo":"node_modules/graphql/utilities/TypeInfo.mjs","./specifiedRules":"node_modules/graphql/validation/specifiedRules.mjs","./ValidationContext":"node_modules/graphql/validation/ValidationContext.mjs"}],"node_modules/graphql/jsutils/isPromise.mjs":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -70017,7 +69977,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64109" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61824" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
