@@ -14,6 +14,7 @@ scraper = async (name) => {
   const getPrices = async (url) => {
 
     const page = await browser.newPage();
+    console.log('original Url',url)
     await page.goto(url);
         
     const pricesOnPage = await page.evaluate(() => {
@@ -31,23 +32,32 @@ scraper = async (name) => {
       })
       return prices
     })
-    await browser.close();
+    await page.close();
    
     // Scrapper Recursion for multipage results 
     
     if(pricesOnPage.length < 1){
+      console.log('pricesOnAllPages',pricesOnPage);
+      
       return pricesOnPage
     }
     else{
-      let pageNum = parseInt(url.match(/s=(\d+)/))
-
-      pageNum?(pageNum += 120):(pageNum = 120);
-
-      const newUrl = url+`&s=${pageNum}`
-
-      console.log('going to ',newUrl);
       
-      return await pricesOnPage.concat(getPrices(newUrl))
+      let pageNum = url.match(/s=(\d+)/)
+      
+      if(pageNum){
+
+        pageNum = parseInt(pageNum[1])
+        console.log('increment',pageNum)
+        pageNum = pageNum + 120
+      }
+      else{
+        pageNum = 120
+      }
+
+      const newUrl = initalUrl+`&s=${pageNum}`
+      
+      return await pricesOnPage.concat( await getPrices(newUrl))
     }
   }
   
