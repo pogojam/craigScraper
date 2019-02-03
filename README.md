@@ -7,6 +7,6 @@ One can simply enter the name of a product and out comes an average selling pric
 price. CraigScraper will monitor Craigslist for any new entries and send an alert if any items match the recommended buy price.
 
 ## To Use
-` npm i 
-  npm start
-  npm run api
+` npm i `
+`  npm start`
+ ` npm run api`
