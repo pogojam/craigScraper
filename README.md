@@ -10,4 +10,3 @@ price. CraigScraper will monitor Craigslist for any new entries and send an aler
 ` npm i 
   npm start
   npm run api
-`
