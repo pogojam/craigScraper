@@ -19,7 +19,7 @@
     "express-graphql": "^0.7.1",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",
-    "mongodb": "^3.1.11",
+    "mongodb": "^3.1.13",
     "morgan": "^1.9.1",
     "puppeteer": "^1.20.0",
     "puppeteer-core": "^1.11.0",
