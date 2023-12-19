@@ -12,7 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "apollo-boost": "^0.1.23",
-    "apollo-server-express": "^2.3.1",
+    "apollo-server-express": "^3.13.0",
     "axios": "^0.18.1",
     "cors": "^2.8.5",
     "express": "^4.16.4",
@@ -21,7 +21,7 @@
     "graphql-tag": "^2.10.0",
     "mongodb": "^3.1.11",
     "morgan": "^1.9.1",
-    "puppeteer": "^1.20.0",
+    "puppeteer": "^21.3.7",
     "puppeteer-core": "^1.11.0",
     "react": "^16.7.0",
     "react-apollo": "^2.3.3",
